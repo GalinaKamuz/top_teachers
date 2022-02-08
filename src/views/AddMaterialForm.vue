@@ -4,6 +4,9 @@
     <form>
       <div class="formArea">
         <my-input label="Название материала" v-model="title"/>
+
+        <label for="imgMaterial">Добавьте изображение к материалу</label>
+        <input id="imgMaterial" type="file">
         
         <my-textarea label="Описание материала" v-model="description"/>
 
@@ -83,4 +86,15 @@ span {
   font-size: 18px;
   margin-top: 5px;
 }
+label {
+  margin-bottom: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  margin-top: 5px;
+}
+input {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  margin-left: 30px;
+  }
 </style>

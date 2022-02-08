@@ -5,6 +5,10 @@
       <div class="formArea">
 
         <my-input label="Заголовок поста" v-model="titlePost"/>
+
+        <label for="imgPost">Добавьте изображение к посту</label>
+        <input id="imgPost" type="file" accept="image/*" @change="onFilePicked">
+        <img :src="imageUrl">
         
         <my-textarea label="Текст поста" v-model="descriptionPost"/>
 
@@ -32,17 +36,23 @@ export default {
       descriptionPost: '',
       selectedNames: '',
       selectedOptions: ['Делюсь опытом', 'Нужен совет', 'Проблемная ситуация', 'Мероприятие'],
-     
+      imageUrl: '',
+      image: null,
     };
   },
   methods: {
     onAdd() {
+      if (!this.image) {
+        alert('Пожалуйста, выберите изображение')
+        return
+      }
       this.$store.dispatch("posts/createPost", 
         { title: this.titlePost, 
           body: this.descriptionPost, 
           category: this.selectedNames,
           author: this.getUserName(),
-          time: this.printDate()});
+          time: this.printDate(),
+          image: this.image});
       this.$router.push("/posts");
     },
     onUpdate () {
@@ -52,7 +62,8 @@ export default {
           body: this.descriptionPost, 
           category: this.selectedNames, 
           author: this.getUserName(),
-          time: this.printDate()});
+          time: this.printDate(),
+          image: this.image});
       this.$router.push("/posts");
     },
     showDialog() {
@@ -65,6 +76,19 @@ export default {
     printDate() {
       return new Date().toLocaleString();
     },
+    onFilePicked(event) {
+      const files = event.target.files
+      let filename = files[0].name
+      if (filename.lastIndexOf('.') <= 0) {
+          return alert('Пожалуйста, выберите подходящий файл')
+      }
+      const reader = new FileReader()
+      reader.addEventListener('load', () => {
+        this.imageUrl = reader.result
+      }),
+      reader.readAsDataURL(files[0])
+      this.image = files[0]
+    }
   },
 }
 </script>
@@ -100,5 +124,20 @@ span {
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   margin-top: 5px;
+}
+label {
+  margin-bottom: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  margin-top: 5px;
+}
+input {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  margin-left: 30px;
+}
+img {
+  width: 30%;
+  align-self: center;
 }
 </style>

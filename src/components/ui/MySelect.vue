@@ -61,5 +61,8 @@ option {
   font-size: 18px;
   margin-top: 5px;
 }
-
+select  {
+    height: 30px;
+    font-size: 18px;
+}
 </style>

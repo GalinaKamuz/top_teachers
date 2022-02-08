@@ -58,6 +58,7 @@ textarea {
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   padding-left: 7px;
+  height: 200px;
 }
 
 </style>
