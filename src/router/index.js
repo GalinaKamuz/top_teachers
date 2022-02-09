@@ -43,6 +43,10 @@ const routes = [
     component: () => import ('../components/PostEdit.vue')
   },
   {
+    path: '/material_edit/:id',
+    component: () => import ('../components/MaterialEdit.vue')
+  },
+  {
     path: '/addMaterial',
     component: () => import ('../views/AddMaterialForm.vue'),
     beforeEnter (to, from, next) {

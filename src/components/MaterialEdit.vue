@@ -29,7 +29,21 @@
           v-model:modelValueChecked="checkedNames" 
           :value="checkedOptions" />
 
-        <my-submit label="Добавить" @click="onAdd" />
+        <div class="buttonArea">
+          <my-submit label="Сохранить изменения" @click="onUpdate"/>
+          <my-submit label="Отмена" @click="showDialog"/>
+        </div>
+        
+        <my-dialog ref="dialog">
+      
+          <template #header>Изменения НЕ будут сохранены</template>
+          <template #body>Вы уверены?</template>
+          <template #footer>
+            <button @click="$router.push('/materials')">Да</button>
+            <button @click="stopDialog">Нет</button>
+          </template>
+          
+        </my-dialog>
       </div>
       
   </div>
@@ -54,24 +68,23 @@ export default {
       imageUrl: '',
     };
   },
+  created() {
+    const id = this.$route.params.id;
+    const materialById = this.$store.getters["materials/materialById"];
+    const editMaterial = materialById(id);
+    this.materialId = editMaterial?.id;
+    this.titleMaterial = editMaterial?.title;
+    this.descriptionMaterial = editMaterial?.body;
+    this.downloadlinkMaterial = editMaterial?.download;
+    this.radioNames = editMaterial?.basis;
+    this.selectedNames = editMaterial?.format;
+    this.checkedNames = editMaterial?.areas;
+    this.imageUrl = editMaterial?.image;
+  },
   methods: {
-    onAdd() {
-      this.$store.dispatch("materials/createMaterial", 
-        { title: this.titleMaterial, 
-          body: this.descriptionMaterial, 
-          download: this.downloadlinkMaterial, 
-          basis: this.radioNames,
-          format: this.selectedNames,
-          areas: this.checkedNames,
-          author: this.getUserName(),
-          authorEmail: this.getUserEmail(),
-          time: this.printDate(),
-          image: this.imageUrl});
-      this.$router.push("/materials");
-    },
     onUpdate () {
       this.$store.dispatch("materials/updateMaterial", 
-        { id: 1, 
+        { id: this.materialId, 
           title: this.titleMaterial, 
           body: this.descriptionMaterial, 
           download: this.downloadlinkMaterial, 
@@ -84,8 +97,13 @@ export default {
           image: this.imageUrl});
       this.$router.push("/materials");
     },
-    showDialog() {
+    showDialog(id) {
+      this.idForDelete = id;
       this.$refs.dialog.show();
+    },
+    stopDialog() {
+      this.idForDelete = '';
+      this.$refs.dialog.shown = false;
     },
     getUserName() {
       const author = this.$store.getters['user/userName'];
@@ -145,4 +163,15 @@ input {
   font-size: 18px;
   margin-left: 30px;
   }
+
+  @media (max-width: 680px) {
+.formArea {
+  margin: 0 10px;
+}
+.buttonArea {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+}
 </style>

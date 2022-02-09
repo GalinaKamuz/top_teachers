@@ -12,7 +12,10 @@
 
         <span>Выберите категорию поста</span>
 
-        <my-select :optionsSelected="selectedOptions" v-model:modelValueSelected="selectedNames" :value="selectedOptions" />
+        <my-select 
+          :optionsSelected="selectedOptions" 
+          v-model:modelValueSelected="selectedNames" 
+          :value="selectedOptions" />
 
         <my-submit label="Добавить" @click="onAdd" />
 

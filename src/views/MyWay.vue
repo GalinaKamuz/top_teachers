@@ -71,7 +71,7 @@
 
    <!--  <router-view/> -->
    
-    <h4>{{ $store.getters["posts/count"] }}</h4>
+    <!-- <h4>{{ $store.getters["posts/count"] }}</h4> -->
 
   </div>
 </template>

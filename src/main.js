@@ -41,6 +41,16 @@ onValue(ref(db, path), (snapshot) => {
   }
 });
 
+const pathM = '/materials';
+onValue(ref(db, pathM), (snapshot) => {
+  store.commit('materials/clear');
+  const materialsObject = snapshot.val();
+  for (const [key, value] of Object.entries(materialsObject)) {
+    store.commit('materials/addMaterial', value);
+    console.log(key);
+  }
+});
+
 const app = createApp(App);
 app.use(router);
 app.use(store);
