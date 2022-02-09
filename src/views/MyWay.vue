@@ -84,7 +84,6 @@ export default {
   data () {
     return {
       idForDelete: '',
-      arrayLikes: [],
     }
   },
   components: {

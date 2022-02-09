@@ -1,26 +1,47 @@
 <template>
   <div class="postform">
-    <div class="postimg">
-      <img alt="Изображение к посту" src="../assets/png/foto_post_1.png" class="jmg_post">
-    </div>
-    <div class="description">
-      <div class="titlepost">
+    <div class="titlepost">
         {{editPost?.title}}
       </div>
- 
+    <div class="postimg">
+      <img alt="Изображение к посту" :src="editPost?.image">
+    </div>
+    <div class="description">
+      
       <div class="posttext">
         {{editPost?.body}}
       </div>
 
-      <div class="posttext">
-        {{editPost?.category}}
+      <div class="subtext">
+        <div>
+          Категория поста: {{editPost?.category}}
+        </div>
+        <div>
+          Автор: {{editPost?.author}}
+        </div>
       </div>
-      <div class="postinfo">
-        <span>12.09.2021</span>
-        <button class="like">12</button>
-        <button class="comment">5</button>
+      <div class="postfooter">
+        <div class="postinfo">
+          Опубликовано: {{editPost?.time}}
+        </div>
+        <div class="row" v-if="checkingAuthor(editPost?.author)">
+          <my-button-post src="edit.png" @click="goTo(`/post_edit/${editPost?.id}`)" />
+          <my-button-post src="delete.png" @click="showDialog(editPost?.id)" />
+        </div>
       </div>
     </div>
+
+    <my-dialog ref="dialog">
+      
+      <template #header>Подтвердите удаление</template>
+      <template #body>Вы уверены?</template>
+      <template #footer>
+        <button @click="doDelete(idForDelete)">Да</button>
+        <button @click="stopDialog">Нет</button>
+      </template>
+      
+    </my-dialog>
+
   </div>
 </template>
 
@@ -29,6 +50,7 @@
 export default {
   data () {
     return {
+      idForDelete: '',
       editPost: null,
     }
   },
@@ -37,7 +59,32 @@ export default {
     const postById = this.$store.getters["posts/postById"];
     this.editPost = postById(id);
   },
-
+  methods: {
+    goTo(route) {
+      this.$router.push(route);
+    },
+    doDelete (id) {
+      this.$store.dispatch('posts/deletePost', id);
+      this.stopDialog();
+      this.$router.push('/');
+    },
+    showDialog(id) {
+      this.idForDelete = id;
+      this.$refs.dialog.show();
+    },
+    stopDialog() {
+      this.idForDelete = '';
+      this.$refs.dialog.shown = false;
+    },
+    checkingAuthor(author) {
+      this.authorPost = author;
+      if (this.$store.getters['user/userName'] === this.authorPost) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
 };
 </script>
 
@@ -49,11 +96,14 @@ button {
 }
 .postform {
   display: flex;
-  margin: 50px 70px 0 70px;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 70px;
+  padding: 0 30px 30px 30px;
   box-shadow: 0px 5px 10px #e9dada;
 }
 .postimg {
-  margin-right: 30px;
+  margin: 20px 0;
 }
 .titlepost {
   font-family: 'Open Sans', sans-serif;
@@ -65,7 +115,21 @@ button {
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   color: #434343;
-  margin-bottom: 20px;
+  margin: 20px 0;
+  line-height: 1.3em;
+}
+.subtext {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  color: #434343;
+  margin: 20px 0;
+  line-height: 1.3em;
+  display: flex;
+  justify-content: space-between;
+}
+.postfooter {
+  display: flex;
+  justify-content: space-between;
 }
 .postinfo {
   display: flex;
@@ -75,10 +139,27 @@ button {
   align-items: center;
   color: #F38195;
 }
-.like {
-  background: url('../assets/svg/like.svg') left no-repeat;
+.row {
+  display: flex;
+  justify-content: space-between;
 }
-.comment {
-  background: url('../assets/svg/comment.svg') left no-repeat;
+
+@media (max-width: 680px) {
+.postform {
+  margin: 0 15px;
+}
+.subtext {
+  flex-direction: column;
+}
+.postinfo {
+  margin-bottom: 10px;
+}
+.postfooter {
+  flex-direction: column;
+  align-items: flex-start
+}
+img {
+  width: 100%;
+}
 }
 </style>

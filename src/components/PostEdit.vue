@@ -164,4 +164,15 @@ button {
 .comment {
   background: url('../assets/svg/comment.svg') left no-repeat;
 }
+
+@media (max-width: 680px) {
+.formArea {
+  margin: 0 10px;
+}
+.buttonArea {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+}
 </style>
