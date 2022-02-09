@@ -96,6 +96,7 @@ export default {
 
 .modal-default-button {
   float: right;
+  margin-left: 20px;
 }
 
 .modal-enter {

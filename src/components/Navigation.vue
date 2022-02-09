@@ -91,4 +91,18 @@ button {
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
 }
+
+@media (max-width: 1200px) {
+  .nav {
+  width: 90%;
+}
+}
+
+@media (max-width: 680px) {
+.nav {
+  width: 95%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+}
 </style>

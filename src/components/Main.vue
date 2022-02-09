@@ -2,15 +2,17 @@
   <div data-vue-component="Main" class="main">
     <div id="tablist" class="tablist">
       <button 
+        class="tab_posts"
         :class="{active: activePath === '/posts'}" 
         @click="$router.push('/posts')">
-        Путь учителя
+        <span>Путь учителя</span>
       </button>
       
       <button 
+        class="tab_materials"
         :class="{active: activePath === '/materials'}" 
         @click="$router.push('/materials')">
-        Авторские материалы
+        <span>Авторские материалы</span>
       </button>
       
     </div>
@@ -64,5 +66,29 @@ button:hover {
 }
 .active {
   box-shadow: 0px 3px 3px #f38196a8;
+}
+
+@media (max-width: 680px) {
+.tablist {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  margin-bottom: 30px;
+}
+.tablist button {
+  width: 100px;
+  height: 50px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.tab_posts {
+  background: url('../assets/svg/post.svg') #FFFFFF no-repeat center;
+}
+.tab_materials {
+  background: url('../assets/svg/materials.svg') #FFFFFF no-repeat center;
+}
+span {
+  display: none;
+}
 }
 </style>

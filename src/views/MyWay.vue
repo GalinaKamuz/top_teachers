@@ -14,7 +14,7 @@
     >
         <div class="postform">
           <div class="postimg">
-            <img alt="Изображение к посту" src="../assets/png/foto_post_1.png" class="jmg_post">
+            <img alt="Изображение к посту" :src="posts.image">
           </div>
           <div class="description">
             <div class="titlepost">
@@ -39,8 +39,9 @@
             </div>
             <div class="buttonsArea">
               <div class="row">
-                <my-button-post label="Счетчик" src="likes.png"/>
-                <my-button-post label="Счетчик" src="comment.png"/>
+                <my-button-post src="likes.png"/>
+                
+                <my-button-post label="" src="comment.png"/>
               </div>
                          
               <div class="row" v-if="checkingAuthor(posts.author)">
@@ -83,6 +84,7 @@ export default {
   data () {
     return {
       idForDelete: '',
+      arrayLikes: [],
     }
   },
   components: {
@@ -117,7 +119,7 @@ export default {
       } else {
         return false;
       }
-    } 
+    },
   },
 };
 </script>
@@ -136,7 +138,11 @@ export default {
   margin: 50px 0 0 0;
   box-shadow: 0px 5px 10px #e9dada;
 }
+.postimg {
+  width: 45%;
+}
 .description {
+  width: 55%;
   padding: 0 30px;
 }
 .titlepost {
@@ -147,6 +153,12 @@ export default {
   font-weight: 500;
   margin: 20px 0;
   position:relative;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 .containerPostText {
   height: 12em;
@@ -193,7 +205,24 @@ export default {
   color: #F38195;
 }
 
+@media (max-width: 1080px) {
+  .postform {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.postimg {
+  width: 60%;
+}
+.description {
+  width: 100%;
+}
+}
 
+@media (max-width: 680px) {
+.my_way {
+  margin: 0 7px;
+}
+}
 
 
 </style>

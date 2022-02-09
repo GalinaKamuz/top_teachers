@@ -34,5 +34,12 @@ export default {
         updates['posts/' + id] = null;
         const db = getDatabase();
         return update(ref(db), updates);
+    },
+
+    addLikes(context, data) {
+        const updates = {};
+        updates['posts/' + data.id] = data;
+        const db = getDatabase();
+        return update(ref(db), updates);
     }
 }

@@ -5,6 +5,8 @@
       <div class="formArea">
 
         <my-input label="Заголовок поста" v-model="titlePost"/>
+
+        <my-input label="URL изображения к посту" v-model="imageUrl"/>
         
         <my-textarea label="Текст поста" v-model="descriptionPost"/>
 
@@ -42,6 +44,7 @@ export default {
       selectedNames: "",
       postId: '',
       selectedOptions: ['Делюсь опытом', 'Нужен совет', 'Проблемная ситуация', 'Мероприятие'],
+      imageUrl: '',
     };
   },
   created() {
@@ -52,6 +55,7 @@ export default {
     this.titlePost = editPost?.title;
     this.descriptionPost = editPost?.body;
     this.selectedNames = editPost?.category;
+    this.imageUrl = editPost?.image;
   },
   methods: {
     onUpdate() {
@@ -61,7 +65,8 @@ export default {
         body: this.descriptionPost,
         category: this.selectedNames,
         author: this.getUserName(),
-        time: this.printDate()});
+        time: this.printDate(),
+        image: this.imageUrl});
       this.$router.push("/posts");
     },
     showDialog(id) {

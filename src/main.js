@@ -15,21 +15,16 @@ import MyButtonPost from '@/components/ui/MyButtonPost.vue';
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAvkyJU2PzZop8drW8EtM4PzGJtA21d_HA",
   authDomain: "top-teacher-6dee7.firebaseapp.com",
   databaseURL: "https://top-teacher-6dee7-default-rtdb.firebaseio.com/",
   projectId: "top-teacher-6dee7",
-  storageBucket: "top-teacher-6dee7.appspot.com",
   messagingSenderId: "240075215380",
-  appId: "1:240075215380:web:c3064343df3eb408434d01"
+  appId: "1:240075215380:web:c3064343df3eb408434d01",
+  storageBucket: "gs://top-teacher-6dee7.appspot.com",
 };
 
 initializeApp(firebaseConfig);

@@ -2,7 +2,7 @@
   <div v-if="!$store.getters['user/isAuth']" data-vue-component="Welcome" class="welcome"> 
     <div data-vue-component="Greetings" class="greetings">
       <div class="caption">
-        Вступайте в сообщество Top Teachers! <br>Мы Вас ждём!
+        Вступайте в сообщество <br> Top Teachers! Мы Вас ждём!
       </div>
       <div class="description">
         Кто такой "лучший учитель"? <br>
@@ -10,7 +10,7 @@
         Именно в нашем сообществе Вы сможете зарядиться энергией, обсудить волнующие вопросы и смотивировать других единомышленников своими достижениями!
       </div>
     </div> 
-    <div>
+    <div class="divide">
       <img src="../assets/svg/divide.svg">
     </div>
     <div class="fotoWelcomeArea">
@@ -27,7 +27,7 @@
         {{$store.getters['user/userName']}}
       </div>
     </div>
-    <img src="../assets/svg/divide.svg">
+    <img class="divide" src="../assets/svg/divide.svg">
     <div data-vue-component="InfoProfile" class="InfoProfile">
       <div class="caption">
         Приветствуем Вас, {{$store.getters['user/userName']}}, в сообществе <br>Top teachers!
@@ -128,5 +128,63 @@ export default {
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   color: #434343;
+}
+
+@media (max-width: 1200px) {
+  .profileArea {
+    width: 90%;
+  }
+  .welcome {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  flex-wrap: wrap;
+}
+}
+@media (max-width: 1080px) {
+  .divide {
+  display: none;
+}
+.welcome {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  flex-wrap: wrap;
+}
+.greetings {
+  width: 100%;
+  margin-top: 20px;
+}
+.fotoWelcomeArea {
+  width: 70%;
+  margin-top: 30px;
+}
+}
+
+@media (max-width: 680px) {
+.profileArea {
+  width: 95%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.welcome {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  flex-wrap: wrap;
+}
+.greetings {
+  width: 100%;
+  margin-top: 20px;
+}
+img {
+  width: 100%;
+}
 }
 </style>
